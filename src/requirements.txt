@@ -1,0 +1,7 @@
+certifi @ file:///croot/certifi_1671487769961/work/certifi
+numpy==1.21.6
+opencv-python==4.0.0.21
+PyQt5==5.15.9
+PyQt5-Qt5==5.15.2
+PyQt5-sip==12.12.2
+qimage2ndarray==1.10.0
