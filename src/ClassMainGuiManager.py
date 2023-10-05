@@ -3,19 +3,18 @@ from PyQt5.QtWidgets import QMainWindow, QGraphicsScene
 from PyQt5.QtGui import  QPixmap
 from PyQt5 import QtCore
 import qimage2ndarray
+from main_ui import Ui_MainWindow
 
 class MainGUIManager(QMainWindow):
-    def __init__(self, MainWindow,mainController, app_dir):
+    def __init__(self, mainController, app_dir):
         QMainWindow.__init__(self)
         self.mainController = mainController
-        self.ui = MainWindow()
+        self.ui = Ui_MainWindow()
         self.appdir = app_dir
         self.contador = 0
         self.ui.setupUi(self)
 
         # Parte de procesados
-
-        self.ui.setupUi(self)
         
         self.hsvcone = cv2.imread(self.appdir + "hsvcone.png")
         self.hsvcone = cv2.cvtColor(self.hsvcone, cv2.COLOR_BGR2RGB)
@@ -33,7 +32,8 @@ class MainGUIManager(QMainWindow):
         self.mainSceneHSV.clear()
         self.mainSceneHSV.addPixmap(QPixmap.fromImage(qimage2ndarray.array2qimage(image)).scaled(self.ui.graphicsView_5.width() + 80, self.ui.graphicsView_5.height() + 80, QtCore.Qt.KeepAspectRatio))
         self.mainSceneHSV.update()
-
+        
+        self.refreshSlidesValue()
 
         self.set_GUI_signals()
 
@@ -55,8 +55,29 @@ class MainGUIManager(QMainWindow):
         self.ui.pushButton_2.clicked.connect(self.mainController.imageMenos)
         self.ui.pushButton.clicked.connect(self.mainController.imageMas)
 
-        # Parte procesados
 
+        self.ui.horizontalSlider_hmin.valueChanged.connect(self.refreshSlidesValue)
+        self.ui.horizontalSlider_hmin.valueChanged.connect(self.modifyHSVRangeWithSlide)
+
+        self.ui.horizontalSlider_hmax.valueChanged.connect(self.refreshSlidesValue)
+        self.ui.horizontalSlider_hmax.valueChanged.connect(self.modifyHSVRangeWithSlide)
+
+        self.ui.horizontalSlider_smin.valueChanged.connect(self.refreshSlidesValue)
+        self.ui.horizontalSlider_smin.valueChanged.connect(self.modifyHSVRangeWithSlide)
+
+        self.ui.horizontalSlider_smax.valueChanged.connect(self.refreshSlidesValue)
+        self.ui.horizontalSlider_smax.valueChanged.connect(self.modifyHSVRangeWithSlide)
+
+        self.ui.horizontalSlider_vmin.valueChanged.connect(self.refreshSlidesValue)
+        self.ui.horizontalSlider_vmin.valueChanged.connect(self.modifyHSVRangeWithSlide)
+
+        self.ui.horizontalSlider_vmax.valueChanged.connect(self.refreshSlidesValue)
+        self.ui.horizontalSlider_vmax.valueChanged.connect(self.modifyHSVRangeWithSlide)
+
+        
+
+
+        # Parte procesados
 
         self.mainController.controlRangoDia.valoresNormales.connect(self.valoresNormalesDia)
         self.mainController.controlRangoDia.valoresQuemada.connect(self.valoresQuemadaDia)
@@ -84,6 +105,18 @@ class MainGUIManager(QMainWindow):
 
     # Funciones comprobación HSV
 
+    def refreshSlidesValue(self):
+        self.ui.label_hminBar.setText(f"H Min: {self.ui.horizontalSlider_hmin.value()}")
+        self.ui.label_hmaxBar.setText(f"H Max: {self.ui.horizontalSlider_hmax.value()}")
+        self.ui.label_sminBar.setText(f"S Min: {self.ui.horizontalSlider_smin.value()}")
+        self.ui.label_smaxBar.setText(f"S Max: {self.ui.horizontalSlider_smax.value()}")
+        self.ui.label_vminBar.setText(f"V Min: {self.ui.horizontalSlider_vmin.value()}")
+        self.ui.label_vmaxBar.setText(f"V Max: {self.ui.horizontalSlider_vmax.value()}")
+
+    def modifyHSVRangeWithSlide(self):
+        self.mainController.quemado.setHSVRange(int(self.ui.horizontalSlider_hmin.value()),int(self.ui.horizontalSlider_hmax.value()),int(self.ui.horizontalSlider_smin.value()),int(self.ui.horizontalSlider_smax.value()),int(self.ui.horizontalSlider_vmin.value()),int(self.ui.horizontalSlider_vmax.value()))
+        self.mainController.quemado.HSV(img=None,hsvOriginal=None)
+
     def infoQuemadas(self,totales,quemados,bien,fm):
         self.ui.label_fm.setText(fm)
         self.ui.label_pko.setText(quemados)
@@ -91,6 +124,7 @@ class MainGUIManager(QMainWindow):
 
 
     def showMaskQuemadas(self,image):
+        self.maskImg = image
         self.mainScene1 = QGraphicsScene(self.ui.graphicsView)
         
         self.ui.graphicsView.setScene(self.mainScene1)
@@ -100,8 +134,9 @@ class MainGUIManager(QMainWindow):
         self.mainScene1.update()
         
         
-    def showModdedQuemadas(self,modded):
+    def showModdedQuemadas(self,modded,noRectangleImg):
         self.moddedQuemada = modded
+        self.moddedQuemadaNoRectangle = noRectangleImg
         self.mainScene2 = QGraphicsScene(self.ui.graphicsView_2)
         
         self.ui.graphicsView_2.setScene(self.mainScene2)
@@ -120,11 +155,12 @@ class MainGUIManager(QMainWindow):
         self.ui.label_vmoda.setText(modav)
 
     def guardarImagen(self):
-        self.mainController.guardarImgQuemada(self.ui.lineEdit_brillo,self.ui.lineEdit_kernel.text(),self.moddedQuemada)
+        self.mainController.guardarImgQuemada(self.ui.lineEdit_brillo.text(),self.ui.lineEdit_kernel.text(),self.moddedQuemada,self.moddedQuemadaNoRectangle,self.maskImg)
 
 
     def modifyHSVRange(self):
         self.mainController.quemado.setHSVRange(int(self.ui.lineEdit_hmin.text()),int(self.ui.lineEdit_hmax.text()),int(self.ui.lineEdit_smin.text()),int(self.ui.lineEdit_smax.text()),int(self.ui.lineEdit_vmin.text()),int(self.ui.lineEdit_vmax.text()))
+        self.mainController.quemado.start()
 
 
 

@@ -13,7 +13,7 @@ class MainApplication(QApplication):
         self.imagesDirHSV = "../InputHSV/"
         self.imagesDirProcess = "../InputProcess/"
         self.mainController = MainController(self.imagesDirHSV,self.imagesDirProcess,self.app_dir)
-        self.maingui_manager = MainGUIManager(Ui_MainWindow,self.mainController ,self.app_dir)
+        self.maingui_manager = MainGUIManager(self.mainController ,self.app_dir)
         self.maingui_manager.show()
         
 

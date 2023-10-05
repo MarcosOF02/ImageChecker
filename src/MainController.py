@@ -59,10 +59,12 @@ class MainController(QObject):
             print("El kernel debe ser impar")
         else:
             self.quemado.setBrilloRoi(brillo,kernel,sigma,xmin,ymin,xmax,ymax)
+            self.quemado.start()
 
 
     def cambiarImg(self,imagen):
         self.quemado.setImage(imagen)
+        self.quemado.start()
 
     def imageMenos(self):
         if self.actualImage == 0:
@@ -80,7 +82,12 @@ class MainController(QObject):
         self.cambiarImg(self.images[self.actualImage])
         
     
-    def guardarImgQuemada(self,lineEdit_brillo,kernelBlur,moddedQuemada):
+    def guardarImgQuemada(self,lineEdit_brillo,kernelBlur,moddedQuemada,noRectangleImg,mask):
         self.moddedQuemada2 = cv2.cvtColor(moddedQuemada,cv2.COLOR_BGR2RGB)
-        cv2.imwrite(self.appDir + "../IMG-OUT/" + f"Bri{lineEdit_brillo}_KerBlur_{kernelBlur}" + str(self.images[self.actualImage]),self.moddedQuemada2)
-        print("Imagen modificada guardada")
+        noRectangleImg = cv2.cvtColor(noRectangleImg.copy(),cv2.COLOR_BGR2RGB)
+
+        cv2.imwrite(self.appDir + "../IMG-OUT/" + f"Bri{lineEdit_brillo}_KerBlur_{kernelBlur}Draw" + str(self.images[self.actualImage]),self.moddedQuemada2)
+        cv2.imwrite(self.appDir + "../IMG-OUT/" + f"Bri{lineEdit_brillo}_KerBlur_{kernelBlur}" + str(self.images[self.actualImage]),noRectangleImg)
+        cv2.imwrite(self.appDir + "../IMG-OUT/" + f"Bri{lineEdit_brillo}_KerBlur_{kernelBlur}Mask" + str(self.images[self.actualImage]),mask)
+        print("Imagen modificada y mascara guardadas")
+
