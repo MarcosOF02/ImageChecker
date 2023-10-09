@@ -50,7 +50,12 @@ class checkRangeIr(QThread):
             hsvOriginal = cv2.cvtColor(imOriginal, cv2.COLOR_BGR2HSV)
             imOriginal = cv2.cvtColor(hsvOriginal, cv2.COLOR_HSV2RGB)
             
-            img = imOriginal[self.ymin:self.ymax, self.xmin:self.xmax]
+            if self.ymax !=0 and self.xmax != 0:
+
+                img = imOriginal[self.ymin:self.ymax, self.xmin:self.xmax]
+            else:
+                img = imOriginal.copy()
+            
             hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
             
             value_s = []
@@ -147,7 +152,12 @@ class checkRangeIr(QThread):
             hsvOriginal = cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV)
             imOriginal = cv2.cvtColor(hsvOriginal, cv2.COLOR_HSV2RGB)
             
-            img = imOriginal[self.ymin:self.ymax, self.xmin:self.xmax]
+            if self.ymax !=0 and self.xmax != 0:
+
+                img = imOriginal[self.ymin:self.ymax, self.xmin:self.xmax]
+            else:
+                img = imOriginal.copy()
+            
             hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
             
             value_s = []
@@ -220,7 +230,12 @@ class checkRangeIr(QThread):
             imOriginal = cv2.GaussianBlur(imOriginal,(23,23),0)
 
             
-            img = imOriginal[self.ymin:self.ymax, self.xmin:self.xmax]
+            if self.ymax !=0 and self.xmax != 0:
+
+                img = imOriginal[self.ymin:self.ymax, self.xmin:self.xmax]
+            else:
+                img = imOriginal.copy()
+            
             
             
             gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)

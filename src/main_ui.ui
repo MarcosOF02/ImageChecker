@@ -111,7 +111,7 @@
            </layout>
           </item>
           <item row="1" column="1">
-           <layout class="QVBoxLayout" name="verticalLayout_6" stretch="3,0,0">
+           <layout class="QVBoxLayout" name="verticalLayout_6" stretch="3,0,0,0">
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_7" stretch="1,0,0,1,1,2,1,1,2,1,1,0">
               <property name="leftMargin">
@@ -127,7 +127,29 @@
                <number>5</number>
               </property>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,1">
+               <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1,1">
+                <item>
+                 <widget class="QFrame" name="frame_brillo">
+                  <property name="minimumSize">
+                   <size>
+                    <width>25</width>
+                    <height>25</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>25</width>
+                    <height>25</height>
+                   </size>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Raised</enum>
+                  </property>
+                 </widget>
+                </item>
                 <item>
                  <widget class="QLabel" name="label_6">
                   <property name="text">
@@ -146,6 +168,28 @@
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_16">
+                <item>
+                 <widget class="QFrame" name="frame_blur">
+                  <property name="minimumSize">
+                   <size>
+                    <width>25</width>
+                    <height>25</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>25</width>
+                    <height>25</height>
+                   </size>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Raised</enum>
+                  </property>
+                 </widget>
+                </item>
                 <item>
                  <widget class="QLabel" name="label_2">
                   <property name="text">
@@ -182,6 +226,28 @@
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_14">
+                <item>
+                 <widget class="QFrame" name="frame_region">
+                  <property name="minimumSize">
+                   <size>
+                    <width>25</width>
+                    <height>25</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>25</width>
+                    <height>25</height>
+                   </size>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Raised</enum>
+                  </property>
+                 </widget>
+                </item>
                 <item>
                  <widget class="QLabel" name="label_xmin">
                   <property name="text">
@@ -259,6 +325,28 @@
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_4">
+                <item>
+                 <widget class="QFrame" name="frame_valoresSV">
+                  <property name="minimumSize">
+                   <size>
+                    <width>25</width>
+                    <height>25</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>25</width>
+                    <height>25</height>
+                   </size>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Raised</enum>
+                  </property>
+                 </widget>
+                </item>
                 <item>
                  <widget class="QLabel" name="label_13">
                   <property name="text">
@@ -355,6 +443,28 @@
              <widget class="QGraphicsView" name="graphicsView_5"/>
             </item>
             <item>
+             <widget class="QFrame" name="frame_rangoHSV">
+              <property name="minimumSize">
+               <size>
+                <width>25</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>25</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QTabWidget" name="tabWidget">
               <property name="currentIndex">
                <number>0</number>
@@ -365,7 +475,7 @@
                </attribute>
                <layout class="QGridLayout" name="gridLayout_14">
                 <item row="0" column="0">
-                 <layout class="QVBoxLayout" name="verticalLayout_8" stretch="1,1,1,1,3,0,1,1,0">
+                 <layout class="QVBoxLayout" name="verticalLayout_8" stretch="0,1,1,1,3,0,1,1,0">
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_8">
                     <item>
@@ -677,6 +787,11 @@
        <layout class="QGridLayout" name="gridLayout_13">
         <item row="0" column="0">
          <widget class="QTabWidget" name="tabWidget_3">
+          <property name="font">
+           <font>
+            <pointsize>13</pointsize>
+           </font>
+          </property>
           <property name="styleSheet">
            <string notr="true">*{background-color: rgb(96, 96, 96)}</string>
           </property>
@@ -717,6 +832,11 @@
                    <layout class="QHBoxLayout" name="horizontalLayout_19">
                     <item>
                      <widget class="QLabel" name="label_xmin_2">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Xmin</string>
                       </property>
@@ -724,6 +844,11 @@
                     </item>
                     <item>
                      <widget class="QLabel" name="label_ymin_2">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Ymin</string>
                       </property>
@@ -731,6 +856,11 @@
                     </item>
                     <item>
                      <widget class="QLabel" name="label_xmax_2">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Xmax</string>
                       </property>
@@ -738,6 +868,11 @@
                     </item>
                     <item>
                      <widget class="QLabel" name="label_ymax_2">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Ymax</string>
                       </property>
@@ -749,6 +884,11 @@
                    <layout class="QHBoxLayout" name="horizontalLayout_20">
                     <item>
                      <widget class="QLineEdit" name="lineEdit_xmin_2">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>1038</string>
                       </property>
@@ -756,6 +896,11 @@
                     </item>
                     <item>
                      <widget class="QLineEdit" name="lineEdit_ymin_2">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>500</string>
                       </property>
@@ -763,6 +908,11 @@
                     </item>
                     <item>
                      <widget class="QLineEdit" name="lineEdit_xmax_2">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>1835</string>
                       </property>
@@ -770,6 +920,11 @@
                     </item>
                     <item>
                      <widget class="QLineEdit" name="lineEdit_ymax_2">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>926</string>
                       </property>
@@ -781,6 +936,11 @@
                    <layout class="QHBoxLayout" name="horizontalLayout_37">
                     <item>
                      <widget class="QLabel" name="label_55">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Brillo: </string>
                       </property>
@@ -788,6 +948,11 @@
                     </item>
                     <item>
                      <widget class="QLineEdit" name="lineEdit_brillo_2">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>100</string>
                       </property>
@@ -797,6 +962,11 @@
                   </item>
                   <item>
                    <widget class="QPushButton" name="pushButton_3">
+                    <property name="font">
+                     <font>
+                      <pointsize>13</pointsize>
+                     </font>
+                    </property>
                     <property name="styleSheet">
                      <string notr="true"/>
                     </property>
@@ -807,6 +977,11 @@
                   </item>
                   <item>
                    <widget class="QTabWidget" name="tabWidget_4">
+                    <property name="font">
+                     <font>
+                      <pointsize>13</pointsize>
+                     </font>
+                    </property>
                     <property name="styleSheet">
                      <string notr="true"/>
                     </property>
@@ -825,6 +1000,15 @@
                        <layout class="QHBoxLayout" name="horizontalLayout_21">
                         <item>
                          <widget class="QLabel" name="label_15">
+                          <property name="font">
+                           <font>
+                            <family>URW Gothic</family>
+                            <pointsize>12</pointsize>
+                            <weight>7</weight>
+                            <italic>true</italic>
+                            <bold>false</bold>
+                           </font>
+                          </property>
                           <property name="styleSheet">
                            <string notr="true"/>
                           </property>
@@ -926,6 +1110,15 @@
                        <layout class="QHBoxLayout" name="horizontalLayout_23">
                         <item>
                          <widget class="QLabel" name="label_9">
+                          <property name="font">
+                           <font>
+                            <family>URW Gothic</family>
+                            <pointsize>12</pointsize>
+                            <weight>7</weight>
+                            <italic>true</italic>
+                            <bold>false</bold>
+                           </font>
+                          </property>
                           <property name="styleSheet">
                            <string notr="true"/>
                           </property>
@@ -1283,6 +1476,11 @@
                    <layout class="QHBoxLayout" name="horizontalLayout_30">
                     <item>
                      <widget class="QLabel" name="label_xmin_3">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Xmin</string>
                       </property>
@@ -1290,6 +1488,11 @@
                     </item>
                     <item>
                      <widget class="QLabel" name="label_ymin_3">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Ymin</string>
                       </property>
@@ -1297,6 +1500,11 @@
                     </item>
                     <item>
                      <widget class="QLabel" name="label_xmax_3">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Xmax</string>
                       </property>
@@ -1304,6 +1512,11 @@
                     </item>
                     <item>
                      <widget class="QLabel" name="label_ymax_3">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Ymax</string>
                       </property>
@@ -1315,6 +1528,11 @@
                    <layout class="QHBoxLayout" name="horizontalLayout_31">
                     <item>
                      <widget class="QLineEdit" name="lineEdit_xmin_3">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>1038</string>
                       </property>
@@ -1322,6 +1540,11 @@
                     </item>
                     <item>
                      <widget class="QLineEdit" name="lineEdit_ymin_3">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>500</string>
                       </property>
@@ -1329,6 +1552,11 @@
                     </item>
                     <item>
                      <widget class="QLineEdit" name="lineEdit_xmax_3">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>1835</string>
                       </property>
@@ -1336,6 +1564,11 @@
                     </item>
                     <item>
                      <widget class="QLineEdit" name="lineEdit_ymax_3">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>926</string>
                       </property>
@@ -1347,6 +1580,11 @@
                    <layout class="QHBoxLayout" name="horizontalLayout_38">
                     <item>
                      <widget class="QLabel" name="label_56">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Brillo:</string>
                       </property>
@@ -1354,6 +1592,11 @@
                     </item>
                     <item>
                      <widget class="QLineEdit" name="lineEdit_brillo_3">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>100</string>
                       </property>
@@ -1363,6 +1606,11 @@
                   </item>
                   <item>
                    <widget class="QPushButton" name="pushButton_4">
+                    <property name="font">
+                     <font>
+                      <pointsize>13</pointsize>
+                     </font>
+                    </property>
                     <property name="styleSheet">
                      <string notr="true"/>
                     </property>
@@ -1373,6 +1621,11 @@
                   </item>
                   <item>
                    <widget class="QTabWidget" name="tabWidget_5">
+                    <property name="font">
+                     <font>
+                      <pointsize>13</pointsize>
+                     </font>
+                    </property>
                     <property name="styleSheet">
                      <string notr="true"/>
                     </property>
@@ -1391,6 +1644,15 @@
                        <layout class="QHBoxLayout" name="horizontalLayout_32">
                         <item>
                          <widget class="QLabel" name="label_35">
+                          <property name="font">
+                           <font>
+                            <family>URW Gothic</family>
+                            <pointsize>12</pointsize>
+                            <weight>7</weight>
+                            <italic>true</italic>
+                            <bold>false</bold>
+                           </font>
+                          </property>
                           <property name="styleSheet">
                            <string notr="true"/>
                           </property>
@@ -1492,6 +1754,15 @@
                        <layout class="QHBoxLayout" name="horizontalLayout_34">
                         <item>
                          <widget class="QLabel" name="label_39">
+                          <property name="font">
+                           <font>
+                            <family>URW Gothic</family>
+                            <pointsize>12</pointsize>
+                            <weight>7</weight>
+                            <italic>true</italic>
+                            <bold>false</bold>
+                           </font>
+                          </property>
                           <property name="styleSheet">
                            <string notr="true"/>
                           </property>
@@ -1849,6 +2120,11 @@
                    <layout class="QHBoxLayout" name="horizontalLayout_44">
                     <item>
                      <widget class="QLabel" name="label_xmin_4">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Xmin</string>
                       </property>
@@ -1856,6 +2132,11 @@
                     </item>
                     <item>
                      <widget class="QLabel" name="label_ymin_4">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Ymin</string>
                       </property>
@@ -1863,6 +2144,11 @@
                     </item>
                     <item>
                      <widget class="QLabel" name="label_xmax_4">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Xmax</string>
                       </property>
@@ -1870,6 +2156,11 @@
                     </item>
                     <item>
                      <widget class="QLabel" name="label_ymax_4">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Ymax</string>
                       </property>
@@ -1881,6 +2172,11 @@
                    <layout class="QHBoxLayout" name="horizontalLayout_45">
                     <item>
                      <widget class="QLineEdit" name="lineEdit_xmin_4">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>1038</string>
                       </property>
@@ -1888,6 +2184,11 @@
                     </item>
                     <item>
                      <widget class="QLineEdit" name="lineEdit_ymin_4">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>500</string>
                       </property>
@@ -1895,6 +2196,11 @@
                     </item>
                     <item>
                      <widget class="QLineEdit" name="lineEdit_xmax_4">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>1835</string>
                       </property>
@@ -1902,6 +2208,11 @@
                     </item>
                     <item>
                      <widget class="QLineEdit" name="lineEdit_ymax_4">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>926</string>
                       </property>
@@ -1913,6 +2224,11 @@
                    <layout class="QHBoxLayout" name="horizontalLayout_46">
                     <item>
                      <widget class="QLabel" name="label_57">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Brillo:</string>
                       </property>
@@ -1920,6 +2236,11 @@
                     </item>
                     <item>
                      <widget class="QLineEdit" name="lineEdit_brillo_4">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>100</string>
                       </property>
@@ -1929,6 +2250,11 @@
                   </item>
                   <item>
                    <widget class="QPushButton" name="pushButton_6">
+                    <property name="font">
+                     <font>
+                      <pointsize>13</pointsize>
+                     </font>
+                    </property>
                     <property name="styleSheet">
                      <string notr="true"/>
                     </property>
@@ -1939,6 +2265,11 @@
                   </item>
                   <item>
                    <widget class="QTabWidget" name="tabWidget_6">
+                    <property name="font">
+                     <font>
+                      <pointsize>13</pointsize>
+                     </font>
+                    </property>
                     <property name="styleSheet">
                      <string notr="true"/>
                     </property>
@@ -1957,6 +2288,15 @@
                        <layout class="QHBoxLayout" name="horizontalLayout_47">
                         <item>
                          <widget class="QLabel" name="label_53">
+                          <property name="font">
+                           <font>
+                            <family>URW Gothic</family>
+                            <pointsize>12</pointsize>
+                            <weight>7</weight>
+                            <italic>true</italic>
+                            <bold>false</bold>
+                           </font>
+                          </property>
                           <property name="styleSheet">
                            <string notr="true"/>
                           </property>
@@ -2297,6 +2637,15 @@
                        <layout class="QHBoxLayout" name="horizontalLayout_55">
                         <item>
                          <widget class="QLabel" name="label_70">
+                          <property name="font">
+                           <font>
+                            <family>URW Gothic</family>
+                            <pointsize>12</pointsize>
+                            <weight>7</weight>
+                            <italic>true</italic>
+                            <bold>false</bold>
+                           </font>
+                          </property>
                           <property name="text">
                            <string>V (Media)</string>
                           </property>
@@ -2408,6 +2757,11 @@
                    <layout class="QHBoxLayout" name="horizontalLayout_57">
                     <item>
                      <widget class="QLabel" name="label_xmin_5">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Xmin</string>
                       </property>
@@ -2415,6 +2769,11 @@
                     </item>
                     <item>
                      <widget class="QLabel" name="label_ymin_5">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Ymin</string>
                       </property>
@@ -2422,6 +2781,11 @@
                     </item>
                     <item>
                      <widget class="QLabel" name="label_xmax_5">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Xmax</string>
                       </property>
@@ -2429,6 +2793,11 @@
                     </item>
                     <item>
                      <widget class="QLabel" name="label_ymax_5">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Ymax</string>
                       </property>
@@ -2440,6 +2809,11 @@
                    <layout class="QHBoxLayout" name="horizontalLayout_58">
                     <item>
                      <widget class="QLineEdit" name="lineEdit_xmin_5">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>1038</string>
                       </property>
@@ -2447,6 +2821,11 @@
                     </item>
                     <item>
                      <widget class="QLineEdit" name="lineEdit_ymin_5">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>500</string>
                       </property>
@@ -2454,6 +2833,11 @@
                     </item>
                     <item>
                      <widget class="QLineEdit" name="lineEdit_xmax_5">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>1835</string>
                       </property>
@@ -2461,6 +2845,11 @@
                     </item>
                     <item>
                      <widget class="QLineEdit" name="lineEdit_ymax_5">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>926</string>
                       </property>
@@ -2472,6 +2861,11 @@
                    <layout class="QHBoxLayout" name="horizontalLayout_59">
                     <item>
                      <widget class="QLabel" name="label_74">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Kernel</string>
                       </property>
@@ -2479,6 +2873,11 @@
                     </item>
                     <item>
                      <widget class="QLineEdit" name="lineEdit_kernel_2">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>23</string>
                       </property>
@@ -2488,6 +2887,11 @@
                   </item>
                   <item>
                    <widget class="QPushButton" name="pushButton_7">
+                    <property name="font">
+                     <font>
+                      <pointsize>13</pointsize>
+                     </font>
+                    </property>
                     <property name="styleSheet">
                      <string notr="true"/>
                     </property>
@@ -2500,6 +2904,11 @@
                    <layout class="QHBoxLayout" name="horizontalLayout_60">
                     <item>
                      <widget class="QLabel" name="label_75">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="styleSheet">
                        <string notr="true"/>
                       </property>
@@ -2520,6 +2929,11 @@
                     </item>
                     <item>
                      <widget class="QLabel" name="label_76">
+                      <property name="font">
+                       <font>
+                        <pointsize>13</pointsize>
+                       </font>
+                      </property>
                       <property name="styleSheet">
                        <string notr="true"/>
                       </property>

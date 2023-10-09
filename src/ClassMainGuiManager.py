@@ -14,8 +14,7 @@ class MainGUIManager(QMainWindow):
         self.contador = 0
         self.ui.setupUi(self)
 
-        # Parte de procesados
-        
+        # Parte de procesados        
         self.hsvcone = cv2.imread(self.appdir + "hsvcone.png")
         self.hsvcone = cv2.cvtColor(self.hsvcone, cv2.COLOR_BGR2RGB)
 
@@ -34,6 +33,23 @@ class MainGUIManager(QMainWindow):
         self.mainSceneHSV.update()
         
         self.refreshSlidesValue()
+
+
+        self.ui.frame_brillo.setStyleSheet("background-position: center; background-image: url(info.png);background-repeat: no-repeat; ")
+        self.ui.frame_brillo.setToolTip("Modificacion del brillo de la imagen")
+
+        self.ui.frame_blur.setStyleSheet("background-position: center; background-image: url(info.png);background-repeat: no-repeat; ")
+        self.ui.frame_blur.setToolTip("Aqui modificas el difuminado de la imagen, tiene que ser valor inpar o 0 que sera nada")
+
+        self.ui.frame_valoresSV.setStyleSheet("background-position: center; background-image: url(info.png);background-repeat: no-repeat; ")
+        self.ui.frame_valoresSV.setToolTip("Valores de la S y V de HSV que esta dando la imagen")
+
+        self.ui.frame_region.setStyleSheet("background-position: center; background-image: url(info.png);background-repeat: no-repeat; ")
+        self.ui.frame_region.setToolTip("Region en la que se tendra en cuenta las modificaciones, todo a 0 es la imagen completa")
+
+        self.ui.frame_rangoHSV.setStyleSheet("background-position: center; background-image: url(info.png);background-repeat: no-repeat; ")
+        self.ui.frame_rangoHSV.setToolTip("Modifica el rango HSV que se mostrara reflejado en la mascara de la imagen")
+
 
         self.set_GUI_signals()
 
@@ -196,7 +212,7 @@ class MainGUIManager(QMainWindow):
         self.ui.label_fmmal.setText(fm)
 
     def envioRoiDia(self):
-        self.mainController.iniciarComprobacionDia(self.ui.lineEdit_xmin.text(),self.ui.lineEdit_ymin.text(),self.ui.lineEdit_xmax.text(),self.ui.lineEdit_ymax.text(),self.ui.lineEdit_brillo_2.text())
+        self.mainController.iniciarComprobacionDia(self.ui.lineEdit_xmin_2.text(),self.ui.lineEdit_ymin_2.text(),self.ui.lineEdit_xmax_2.text(),self.ui.lineEdit_ymax_2.text(),self.ui.lineEdit_brillo_2.text())
 
         
     def setHSVImageDia(self,image):
@@ -238,7 +254,7 @@ class MainGUIManager(QMainWindow):
         self.ui.label_fmmal_2.setText(fm)
 
     def envioRoiNoche(self):
-        self.mainController.iniciarComprobacionNoche(self.ui.lineEdit_xmin_2.text(),self.ui.lineEdit_ymin_2.text(),self.ui.lineEdit_xmax_2.text(),self.ui.lineEdit_ymax_2.text(),self.ui.lineEdit_brillo_3.text())
+        self.mainController.iniciarComprobacionNoche(self.ui.lineEdit_xmin_3.text(),self.ui.lineEdit_ymin_3.text(),self.ui.lineEdit_xmax_3.text(),self.ui.lineEdit_ymax_3.text(),self.ui.lineEdit_brillo_3.text())
 
         
     def setHSVImageNoche(self,image):
@@ -281,7 +297,7 @@ class MainGUIManager(QMainWindow):
         self.ui.label_fmmal_3.setText(fm)
 
     def envioRoiIr(self):
-        self.mainController.iniciarComprobacionIr(self.ui.lineEdit_xmin_3.text(),self.ui.lineEdit_ymin_3.text(),self.ui.lineEdit_xmax_3.text(),self.ui.lineEdit_ymax_3.text(),self.ui.lineEdit_brillo_4.text())
+        self.mainController.iniciarComprobacionIr(self.ui.lineEdit_xmin_4.text(),self.ui.lineEdit_ymin_4.text(),self.ui.lineEdit_xmax_4.text(),self.ui.lineEdit_ymax_4.text(),self.ui.lineEdit_brillo_4.text())
 
         
     def setHSVImageIr(self,image):
@@ -296,7 +312,7 @@ class MainGUIManager(QMainWindow):
     ## BLUR
 
     def envioRoiBlur(self):
-        self.mainController.iniciarComprobacionBlur(self.ui.lineEdit_xmin_4.text(),self.ui.lineEdit_ymin_4.text(),self.ui.lineEdit_xmax_4.text(),self.ui.lineEdit_ymax_4.text(),self.ui.lineEdit_kernel.text())
+        self.mainController.iniciarComprobacionBlur(self.ui.lineEdit_xmin_5.text(),self.ui.lineEdit_ymin_5.text(),self.ui.lineEdit_xmax_5.text(),self.ui.lineEdit_ymax_5.text(),self.ui.lineEdit_kernel.text())
 
 
     def valorBlurBlur(self,fm,fmMod):

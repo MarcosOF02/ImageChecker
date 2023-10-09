@@ -44,7 +44,12 @@ class checkRangeBlur(QThread):
             hsvOriginal = cv2.cvtColor(imOriginal, cv2.COLOR_BGR2HSV)
             imOriginal = cv2.cvtColor(hsvOriginal, cv2.COLOR_HSV2RGB)
             
-            img = imOriginal[self.ymin:self.ymax, self.xmin:self.xmax]
+            if self.ymax !=0 and self.xmax !=0:
+
+                img = imOriginal[self.ymin:self.ymax, self.xmin:self.xmax]
+            else:
+                img = imOriginal.copy()
+            
             gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
             fm.append(round(int(cv2.Laplacian(gray, cv2.CV_64F,ksize=5).var())))
             #BLUR
@@ -55,7 +60,12 @@ class checkRangeBlur(QThread):
                 imOriginal = cv2.GaussianBlur(imOriginal,(self.kernel,self.kernel),0)
 
             
-            img = imOriginal[self.ymin:self.ymax, self.xmin:self.xmax]
+            if self.ymax !=0 and self.xmax !=0:
+
+                img = imOriginal[self.ymin:self.ymax, self.xmin:self.xmax]
+            else:
+                img = imOriginal.copy()
+            
             
             
             gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
