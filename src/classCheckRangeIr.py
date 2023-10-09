@@ -51,10 +51,18 @@ class checkRangeIr(QThread):
             imOriginal = cv2.cvtColor(hsvOriginal, cv2.COLOR_HSV2RGB)
             
             if self.ymax !=0 and self.xmax != 0:
-
-                img = imOriginal[self.ymin:self.ymax, self.xmin:self.xmax]
+                if self.ymax <= imOriginal.shape[0] and self.xmax <= imOriginal.shape[1] and self.ymin < self.ymax and self.xmin < self.xmax:
+                    try:
+                        img = imOriginal[self.ymin:self.ymax, self.xmin:self.xmax]
+                    except Exception as e:
+                        print(f"INFO::BASE::INFRAROJO:: No se ha podido aplicar la region: {e}")
+                        img = imOriginal.copy()
+                else:
+                    img = imOriginal.copy()
+                    print("INFO::BASE::INFRAROJO:: No se ha podido alicar la region")
             else:
                 img = imOriginal.copy()
+                print("INFO::BASE::INFRAROJO:: No se ha aplicado la region")
             
             hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
             
@@ -153,11 +161,19 @@ class checkRangeIr(QThread):
             imOriginal = cv2.cvtColor(hsvOriginal, cv2.COLOR_HSV2RGB)
             
             if self.ymax !=0 and self.xmax != 0:
-
-                img = imOriginal[self.ymin:self.ymax, self.xmin:self.xmax]
+                if self.ymax <= imOriginal.shape[0] and self.xmax <= imOriginal.shape[1] and self.ymin < self.ymax and self.xmin < self.xmax:
+                    try:
+                        img = imOriginal[self.ymin:self.ymax, self.xmin:self.xmax]
+                    except Exception as e:
+                        print(f"INFO::BLUR::INFRAROJO:: No se ha podido aplicar la region: {e}")
+                        img = imOriginal.copy()
+                else:
+                    img = imOriginal.copy()
+                    print("INFO::BLUR::INFRAROJO:: No se ha podido aplicar la region")
             else:
                 img = imOriginal.copy()
-            
+                print("INFO::BLUR::INFRAROJO:: No se ha aplicado la region")
+
             hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
             
             value_s = []
@@ -219,7 +235,7 @@ class checkRangeIr(QThread):
 
         for i in range(len(self.imageList)):
 
-            print(f"BLUR:: PROCESANDO: {self.imageList[i]}")
+            print(f"INFO::BLUR::INFRAROJO::PROCESANDO: {self.imageList[i]}")
 
             imOriginal = cv2.imread(self.appDir + self.imagesDir + self.imageList[i])
 
@@ -231,10 +247,18 @@ class checkRangeIr(QThread):
 
             
             if self.ymax !=0 and self.xmax != 0:
-
-                img = imOriginal[self.ymin:self.ymax, self.xmin:self.xmax]
+                if self.ymax <= imOriginal.shape[0] and self.xmax <= imOriginal.shape[1] and self.ymin < self.ymax and self.xmin < self.xmax:
+                    try:
+                        img = imOriginal[self.ymin:self.ymax, self.xmin:self.xmax]
+                    except Exception as e:
+                        print(f"INFO::BLUR::INFRAROJO:: No se ha podido aplicar la region: {e}")
+                        img = imOriginal.copy()
+                else:
+                    img = imOriginal.copy()
+                    print("INFO::BLUR::INFRAROJO:: No se ha podido aplicar la region")
             else:
                 img = imOriginal.copy()
+                print("INFO::BLUR::INFRAROJO:: No se ha aplicado la region")
             
             
             

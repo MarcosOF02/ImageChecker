@@ -120,7 +120,7 @@ class quemada(QThread):
         imRectanle = cv2.rectangle(imOriginal.copy(),(self.xmin,self.ymin),(self.xmax,self.ymax),(255,255,0),4)
         
         self.imMod = imOriginal.copy()
-
+        print("PORC--", porc)
         self.modded.emit(imRectanle,imOriginal)
         self.mediamoda.emit(str(round(np.mean(value_s),2)),str(round(mode(value_s),2)),str(round(np.mean(value_v),2)),str(round(mode(value_v),2)))
         self.pixeles.emit(str(hsv.shape[0] * hsv.shape[1]), str(round(porc)),str(100-round(porc)),str(fm))

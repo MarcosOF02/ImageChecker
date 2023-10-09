@@ -44,11 +44,19 @@ class checkRangeBlur(QThread):
             hsvOriginal = cv2.cvtColor(imOriginal, cv2.COLOR_BGR2HSV)
             imOriginal = cv2.cvtColor(hsvOriginal, cv2.COLOR_HSV2RGB)
             
-            if self.ymax !=0 and self.xmax !=0:
-
-                img = imOriginal[self.ymin:self.ymax, self.xmin:self.xmax]
+            if self.ymax !=0 and self.xmax != 0:
+                if self.ymax <= imOriginal.shape[0] and self.xmax <= imOriginal.shape[1] and self.ymin < self.ymax and self.xmin < self.xmax:
+                    try:
+                        img = imOriginal[self.ymin:self.ymax, self.xmin:self.xmax]
+                    except Exception as e:
+                        print(f"INFO::BLUR:: No se ha podido aplicar la region: {e}")
+                        img = imOriginal.copy()
+                else:
+                    img = imOriginal.copy()
+                    print("INFO::BLUR:: No se ha podido aplicar la region")
             else:
                 img = imOriginal.copy()
+                print("INFO::BLUR:: No se ha aplicado la region")
             
             gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
             fm.append(round(int(cv2.Laplacian(gray, cv2.CV_64F,ksize=5).var())))
@@ -58,14 +66,7 @@ class checkRangeBlur(QThread):
             else:
                 self.kernel = self.kernel-1
                 imOriginal = cv2.GaussianBlur(imOriginal,(self.kernel,self.kernel),0)
-
-            
-            if self.ymax !=0 and self.xmax !=0:
-
-                img = imOriginal[self.ymin:self.ymax, self.xmin:self.xmax]
-            else:
-                img = imOriginal.copy()
-            
+                print("WARNING::BLUR:: El kernel debe ser inpar")           
             
             
             gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
@@ -81,7 +82,7 @@ class checkRangeBlur(QThread):
 
         fmMod = str(round(np.mean(fmMod)))
         fm = str(round(np.mean(fm)))
-
+        print("----")
         self.valoresBlurredB.emit(fm,fmMod)
 
             

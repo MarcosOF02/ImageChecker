@@ -184,13 +184,13 @@ class MainGUIManager(QMainWindow):
 
 
     def valoresNormalesDia(self,media_s,moda_s,medmod_s,media_v,moda_v,medmod_v,max_v,max_s,fm):
-        self.ui.label_smedia.setText(media_s)
-        self.ui.label_smoda.setText(moda_s)
+        self.ui.label_smedia_2.setText(media_s)
+        self.ui.label_smoda_2.setText(moda_s)
         self.ui.label_smedmod.setText(medmod_s)
         self.ui.label_smax.setText(max_s)
 
-        self.ui.label_vmedia.setText(media_v)
-        self.ui.label_vmoda.setText(moda_v)
+        self.ui.label_vmedia_2.setText(media_v)
+        self.ui.label_vmoda_2.setText(moda_v)
         self.ui.label_vmedmod.setText(medmod_v)
         self.ui.label_vmax.setText(max_v)
 
@@ -226,13 +226,13 @@ class MainGUIManager(QMainWindow):
 
     ### TAB NOCHE
     def valoresNormalesNoche(self,media_s,moda_s,medmod_s,media_v,moda_v,medmod_v,max_v,max_s,fm):
-        self.ui.label_smedia_2.setText(media_s)
-        self.ui.label_smoda_2.setText(moda_s)
+        self.ui.label_smedia_3.setText(media_s)
+        self.ui.label_smoda_3.setText(moda_s)
         self.ui.label_smedmod_2.setText(medmod_s)
         self.ui.label_smax_2.setText(max_s)
 
-        self.ui.label_vmedia_2.setText(media_v)
-        self.ui.label_vmoda_2.setText(moda_v)
+        self.ui.label_vmedia_3.setText(media_v)
+        self.ui.label_vmoda_3.setText(moda_v)
         self.ui.label_vmedmod_2.setText(medmod_v)
         self.ui.label_vmax_2.setText(max_v)
 
@@ -269,13 +269,13 @@ class MainGUIManager(QMainWindow):
     ## TAB Infrarrojo
 
     def valoresNormalesIr(self,media_s,moda_s,medmod_s,media_v,moda_v,medmod_v,max_v,max_s,fm):
-        self.ui.label_smedia_3.setText(media_s)
-        self.ui.label_smoda_3.setText(moda_s)
+        self.ui.label_smedia_4.setText(media_s)
+        self.ui.label_smoda_4.setText(moda_s)
         self.ui.label_smedmod_3.setText(medmod_s)
         self.ui.label_smax_3.setText(max_s)
 
-        self.ui.label_vmedia_3.setText(media_v)
-        self.ui.label_vmoda_3.setText(moda_v)
+        self.ui.label_vmedia_4.setText(media_v)
+        self.ui.label_vmoda_4.setText(moda_v)
         self.ui.label_vmedmod_3.setText(medmod_v)
         self.ui.label_vmax_3.setText(max_v)
 
@@ -312,7 +312,7 @@ class MainGUIManager(QMainWindow):
     ## BLUR
 
     def envioRoiBlur(self):
-        self.mainController.iniciarComprobacionBlur(self.ui.lineEdit_xmin_5.text(),self.ui.lineEdit_ymin_5.text(),self.ui.lineEdit_xmax_5.text(),self.ui.lineEdit_ymax_5.text(),self.ui.lineEdit_kernel.text())
+        self.mainController.iniciarComprobacionBlur(self.ui.lineEdit_xmin_5.text(),self.ui.lineEdit_ymin_5.text(),self.ui.lineEdit_xmax_5.text(),self.ui.lineEdit_ymax_5.text(),self.ui.lineEdit_kernel_2.text())
 
 
     def valorBlurBlur(self,fm,fmMod):
