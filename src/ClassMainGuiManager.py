@@ -1,9 +1,90 @@
+from ast import And
 import cv2
-from PyQt5.QtWidgets import QMainWindow, QGraphicsScene
-from PyQt5.QtGui import  QPixmap
+from PyQt5.QtWidgets import QGraphicsSceneMouseEvent, QMainWindow, QGraphicsScene
+from PyQt5.QtGui import  QPixmap, QImage
 from PyQt5 import QtCore
 import qimage2ndarray
 from main_ui import Ui_MainWindow
+
+
+# CLASE PARA EVENTOS DEL RATON EN EL Graphics View
+
+class GraphicsScene(QGraphicsScene):
+    
+    initialPosition = QtCore.QPointF(0,0)
+    finalPosition = QtCore.QPointF(0,0)
+
+    def __init__ (self, parent=None,mainGuiManager=None):
+        super(GraphicsScene, self).__init__ (parent)
+        self.x1new,self.x2new,self.y1new,self.y2new = 0,0,0,0
+        self.track = False
+        self.mainGuiManager = mainGuiManager
+
+
+    def mousePressEvent(self, event):  
+        if event.button() == QtCore.Qt.LeftButton:
+            super(GraphicsScene, self).mousePressEvent(event)
+               
+            self.track = True
+
+            self.initialPosition = QtCore.QPointF(event.scenePos())
+            
+            self.x1new = int(self.initialPosition.x())
+            self.y1new = int(self.initialPosition.y())
+            self.x2new = self.x1new
+            self.y2new = self.y1new
+                
+            self.x2new = int(self.x2new)
+            self.y2new = int(self.y2new)  
+
+
+    def mouseMoveEvent(self, event):
+        if self.track == True:
+            super(GraphicsScene, self).mouseMoveEvent(event)
+            self.finalPosition = QtCore.QPointF(event.scenePos())
+            self.x2new = int(self.finalPosition.x())
+            self.y2new = int(self.finalPosition.y())
+            
+            self.x2new = int(self.x2new)
+            self.y2new = int(self.y2new)   
+
+            self.renderScene()
+    
+
+    def mouseReleaseEvent(self, event):
+        super(GraphicsScene, self).mouseReleaseEvent(event)
+        if event.button() == QtCore.Qt.LeftButton:
+            self.track = False
+                
+
+    def renderScene(self):
+        
+        if self.x2new>1919:
+            self.x2new = 1919
+        
+        if self.y2new>1079:
+            self.y2new = 1079
+
+        if self.x2new<0:
+            self.x2new = 0
+        
+        if self.y2new<0:
+            self.y2new = 0
+            
+        if self.y1new<0:
+            self.y1new = 0
+
+        if self.x1new<0:
+            self.x1new = 0
+            
+        self.x1new = int(self.x1new)
+        self.y1new = int(self.y1new)
+        self.x2new = int(self.x2new)
+        self.y2new = int(self.y2new)
+        self.mainGuiManager.showRect(self.x1new,self.y1new,self.x2new,self.y2new)
+
+   
+
 
 class MainGUIManager(QMainWindow):
     def __init__(self, mainController, app_dir):
@@ -13,12 +94,16 @@ class MainGUIManager(QMainWindow):
         self.appdir = app_dir
         self.contador = 0
         self.ui.setupUi(self)
+        self.imAnchoOriginal = None
+        self.imAltoOriginal = None
 
         # Parte de procesados        
         self.hsvcone = cv2.imread(self.appdir + "hsvcone.png")
         self.hsvcone = cv2.cvtColor(self.hsvcone, cv2.COLOR_BGR2RGB)
 
-
+        self.ui.graphicsView.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.ui.graphicsView.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        
         # parte de comprobacion HSV
 
         # Cargar imagen paleta HSV
@@ -49,7 +134,12 @@ class MainGUIManager(QMainWindow):
 
         self.ui.frame_rangoHSV.setStyleSheet("background-position: center; background-image: url(info.png);background-repeat: no-repeat; ")
         self.ui.frame_rangoHSV.setToolTip("Modifica el rango HSV que se mostrara reflejado en la mascara de la imagen")
-
+        
+        
+        self.mainScene1 = QGraphicsScene(self.ui.graphicsView)
+        self.mainScene2 = GraphicsScene(self.ui.graphicsView_2,self)
+        self.ui.graphicsView_2.setScene(self.mainScene2)
+        
 
         self.set_GUI_signals()
 
@@ -58,6 +148,7 @@ class MainGUIManager(QMainWindow):
 
 
     def set_GUI_signals(self):
+
         # Parte comprobación HSV
         # De class quemada
         self.mainController.quemado.mask.connect(self.showMaskQuemadas)
@@ -91,8 +182,6 @@ class MainGUIManager(QMainWindow):
         self.ui.horizontalSlider_vmax.valueChanged.connect(self.modifyHSVRangeWithSlide)
 
         
-
-
         # Parte procesados
 
         self.mainController.controlRangoDia.valoresNormales.connect(self.valoresNormalesDia)
@@ -117,6 +206,13 @@ class MainGUIManager(QMainWindow):
         self.ui.pushButton_7.clicked.connect(self.envioRoiBlur)
 
 
+    def resizeEvent(self, event):
+        super(QMainWindow, self).resizeEvent(event)
+        try:
+            self.showMaskQuemadas(self.maskImg)
+        except:
+            pass
+        self.mainScene2.renderScene()
 
 
     # Funciones comprobación HSV
@@ -129,9 +225,11 @@ class MainGUIManager(QMainWindow):
         self.ui.label_vminBar.setText(f"V Min: {self.ui.horizontalSlider_vmin.value()}")
         self.ui.label_vmaxBar.setText(f"V Max: {self.ui.horizontalSlider_vmax.value()}")
 
+
     def modifyHSVRangeWithSlide(self):
         self.mainController.quemado.setHSVRange(int(self.ui.horizontalSlider_hmin.value()),int(self.ui.horizontalSlider_hmax.value()),int(self.ui.horizontalSlider_smin.value()),int(self.ui.horizontalSlider_smax.value()),int(self.ui.horizontalSlider_vmin.value()),int(self.ui.horizontalSlider_vmax.value()))
         self.mainController.quemado.HSV(img=None,hsvOriginal=None)
+
 
     def infoQuemadas(self,totales,quemados,bien,fm):
         self.ui.label_fm.setText(fm)
@@ -140,8 +238,8 @@ class MainGUIManager(QMainWindow):
 
 
     def showMaskQuemadas(self,image):
+        image = cv2.resize(image,(self.ui.graphicsView.width()-5,self.ui.graphicsView.height()-10))
         self.maskImg = image
-        self.mainScene1 = QGraphicsScene(self.ui.graphicsView)
         
         self.ui.graphicsView.setScene(self.mainScene1)
         
@@ -151,24 +249,55 @@ class MainGUIManager(QMainWindow):
         
         
     def showModdedQuemadas(self,modded,noRectangleImg):
+        self.imAnchoOriginal = modded.shape[1]
+        self.imAltoOriginal = modded.shape[0]
+        modded = cv2.resize(modded,(self.ui.graphicsView_2.width()-5,self.ui.graphicsView_2.height()-10))
+        noRectangleImg = cv2.resize(noRectangleImg,(self.ui.graphicsView_2.width()-5,self.ui.graphicsView_2.height()-10))
         self.moddedQuemada = modded
         self.moddedQuemadaNoRectangle = noRectangleImg
-        self.mainScene2 = QGraphicsScene(self.ui.graphicsView_2)
-        
-        self.ui.graphicsView_2.setScene(self.mainScene2)
         
         self.mainScene2.clear()
-        self.mainScene2.addPixmap(QPixmap.fromImage(qimage2ndarray.array2qimage(modded)).scaled(self.ui.graphicsView_2.width(), self.ui.graphicsView_2.height() - 5, QtCore.Qt.KeepAspectRatio))
+        self.mainScene2.addPixmap(QPixmap.fromImage(qimage2ndarray.array2qimage(modded)))
         self.mainScene2.update()
+    
+
+    def showRect(self,x1,y1,x2,y2): 
+        try:
+            self.ui.lineEdit_xmin.setText(str(x1))
+            self.ui.lineEdit_ymin.setText(str(y1))
+            self.ui.lineEdit_xmax.setText(str(x2))
+            self.ui.lineEdit_ymax.setText(str(y2))
+            mod = self.moddedQuemada.copy()
+
+            mod = cv2.resize(mod,(self.ui.graphicsView_2.width()-5,self.ui.graphicsView_2.height()-10))
+            mod = cv2.rectangle(mod,(int(x1),int(y1)),(int(x2),int(y2)),(255,0,0),1)
+
+
+            self.mainScene2.clear()
+            #self.mainScene2.addPixmap(QPixmap.fromImage(qimage2ndarray.array2qimage(mod)).scaled(int(self.ui.graphicsView_2.width()), int(self.ui.graphicsView_2.height()) - 5, QtCore.Qt.KeepAspectRatio))
+            self.mainScene2.addPixmap(QPixmap.fromImage(qimage2ndarray.array2qimage(mod)))
+            self.mainScene2.update()
+
+        except Exception as e:
+            pass
+
 
     def controlQuemadas(self):
-        self.mainController.InicioQuemada(self.ui.lineEdit_brillo.text(),self.ui.lineEdit_kernel.text(),self.ui.lineEdit_sigma.text(),self.ui.lineEdit_xmin.text(),self.ui.lineEdit_ymin.text(),self.ui.lineEdit_xmax.text(),self.ui.lineEdit_ymax.text())
+        try:
+            escala_x = (self.ui.graphicsView_2.width()-5) / self.imAnchoOriginal
+            escala_y = (self.ui.graphicsView_2.height()) / self.imAltoOriginal
+
+            self.mainController.InicioQuemada(self.ui.lineEdit_brillo.text(),self.ui.lineEdit_kernel.text(),self.ui.lineEdit_sigma.text(),str(int(int(self.ui.lineEdit_xmin.text()) / escala_x)),str(int(int(self.ui.lineEdit_ymin.text()) / escala_y)),str(int(int(self.ui.lineEdit_xmax.text()) / escala_x)),str(int(int(self.ui.lineEdit_ymax.text()) / escala_y)))
+        except:
+            pass
+
 
     def MedModQuemadas(self,media,moda,mediav,modav):
         self.ui.label_smedia.setText(media)
         self.ui.label_smoda.setText(moda)
         self.ui.label_vmedia.setText(mediav)
         self.ui.label_vmoda.setText(modav)
+
 
     def guardarImagen(self):
         self.mainController.guardarImgQuemada(self.ui.lineEdit_brillo.text(),self.ui.lineEdit_kernel.text(),self.moddedQuemada,self.moddedQuemadaNoRectangle,self.maskImg)
@@ -177,7 +306,6 @@ class MainGUIManager(QMainWindow):
     def modifyHSVRange(self):
         self.mainController.quemado.setHSVRange(int(self.ui.lineEdit_hmin.text()),int(self.ui.lineEdit_hmax.text()),int(self.ui.lineEdit_smin.text()),int(self.ui.lineEdit_smax.text()),int(self.ui.lineEdit_vmin.text()),int(self.ui.lineEdit_vmax.text()))
         self.mainController.quemado.start()
-
 
 
     # Funciones procesados
@@ -196,6 +324,7 @@ class MainGUIManager(QMainWindow):
 
         self.ui.label_fmbien.setText(fm)
 
+
     def valoresQuemadaDia(self,media_s,moda_s,medmod_s,media_v,moda_v,medmod_v,max_v,max_s,hsvimage):
         self.ui.label_smediaM.setText(media_s)
         self.ui.label_smodaM.setText(moda_s)
@@ -208,8 +337,10 @@ class MainGUIManager(QMainWindow):
         self.ui.label_vmaxM.setText(max_v)
         self.setHSVImageDia(hsvimage)
 
+
     def valorBlurDia(self,fm):
         self.ui.label_fmmal.setText(fm)
+
 
     def envioRoiDia(self):
         self.mainController.iniciarComprobacionDia(self.ui.lineEdit_xmin_2.text(),self.ui.lineEdit_ymin_2.text(),self.ui.lineEdit_xmax_2.text(),self.ui.lineEdit_ymax_2.text(),self.ui.lineEdit_brillo_2.text())
@@ -223,6 +354,7 @@ class MainGUIManager(QMainWindow):
         self.mainSceneDIA.clear()
         self.mainSceneDIA.addPixmap(image.scaled(self.ui.graphicsView_3.width(), self.ui.graphicsView_3.height() - 5, QtCore.Qt.KeepAspectRatio))
         self.mainSceneDIA.update()
+
 
     ### TAB NOCHE
     def valoresNormalesNoche(self,media_s,moda_s,medmod_s,media_v,moda_v,medmod_v,max_v,max_s,fm):
@@ -238,6 +370,7 @@ class MainGUIManager(QMainWindow):
 
         self.ui.label_fmbien_2.setText(fm)
 
+
     def valoresQuemadaNoche(self,media_s,moda_s,medmod_s,media_v,moda_v,medmod_v,max_v,max_s,hsvimage):
         self.ui.label_smediaM_2.setText(media_s)
         self.ui.label_smodaM_2.setText(moda_s)
@@ -250,8 +383,10 @@ class MainGUIManager(QMainWindow):
         self.ui.label_vmaxM_2.setText(max_v)
         self.setHSVImageNoche(hsvimage)
 
+
     def valorBlurNoche(self,fm):
         self.ui.label_fmmal_2.setText(fm)
+
 
     def envioRoiNoche(self):
         self.mainController.iniciarComprobacionNoche(self.ui.lineEdit_xmin_3.text(),self.ui.lineEdit_ymin_3.text(),self.ui.lineEdit_xmax_3.text(),self.ui.lineEdit_ymax_3.text(),self.ui.lineEdit_brillo_3.text())
@@ -265,6 +400,7 @@ class MainGUIManager(QMainWindow):
         self.mainSceneNoche.clear()
         self.mainSceneNoche.addPixmap(image.scaled(self.ui.graphicsView_4.width(), self.ui.graphicsView_4.height() - 5, QtCore.Qt.KeepAspectRatio))
         self.mainSceneNoche.update()
+
 
     ## TAB Infrarrojo
 
@@ -281,6 +417,7 @@ class MainGUIManager(QMainWindow):
 
         self.ui.label_fmbien_3.setText(fm)
 
+
     def valoresQuemadaIr(self,media_s,moda_s,medmod_s,media_v,moda_v,medmod_v,max_v,max_s,hsvimage):
         self.ui.label_smediaM_3.setText(media_s)
         self.ui.label_smodaM_3.setText(moda_s)
@@ -293,8 +430,10 @@ class MainGUIManager(QMainWindow):
         self.ui.label_vmaxM_3.setText(max_v)
         self.setHSVImageIr(hsvimage)
 
+
     def valorBlurIr(self,fm):
         self.ui.label_fmmal_3.setText(fm)
+
 
     def envioRoiIr(self):
         self.mainController.iniciarComprobacionIr(self.ui.lineEdit_xmin_4.text(),self.ui.lineEdit_ymin_4.text(),self.ui.lineEdit_xmax_4.text(),self.ui.lineEdit_ymax_4.text(),self.ui.lineEdit_brillo_4.text())
@@ -309,6 +448,7 @@ class MainGUIManager(QMainWindow):
         self.mainSceneIr.addPixmap(image.scaled(self.ui.graphicsView_6.width(), self.ui.graphicsView_6.height() - 5, QtCore.Qt.KeepAspectRatio))
         self.mainSceneIr.update()
 
+
     ## BLUR
 
     def envioRoiBlur(self):
@@ -318,4 +458,3 @@ class MainGUIManager(QMainWindow):
     def valorBlurBlur(self,fm,fmMod):
         self.ui.label_fmbien_4.setText(fm)
         self.ui.label_fmmal_4.setText(fmMod)
-
